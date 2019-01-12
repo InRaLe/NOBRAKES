@@ -3,7 +3,11 @@
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody rb;
-    // Start is called before the first frame update
+    float Steering;
+    public int steeringFactor; //wie schnell man sich seitwärts bewegt
+    public int mvmtFactor;
+    Vector3 playerLookVector;
+    float accel;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody>();
@@ -13,11 +17,14 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Steering = Input.GetAxis("Horizontal");
+        accel = Input.GetAxis("Vertical");
+        playerLookVector = transform.forward;
     }
 
     void FixedUpdate() {
-        rb.AddForce(0,0,100);
-        
+        rb.AddForce(playerLookVector*mvmtFactor*accel);
+        //rb.AddForce(sidewaysMvmt * steeringFactor, 0, 0);
+        rb.AddTorque(new Vector3(0,Steering*steeringFactor,0));
     }
 }
