@@ -23,8 +23,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void FixedUpdate() {
-        rb.AddForce(playerLookVector*mvmtFactor*accel);
+        //rb.AddForce(playerLookVector*mvmtFactor*accel);
         //rb.AddForce(sidewaysMvmt * steeringFactor, 0, 0);
-        rb.AddTorque(new Vector3(0,Steering*steeringFactor,0));
+        //rb.AddTorque(new Vector3(0,Steering*steeringFactor,0));
+        if (Input.GetKey("d"))
+        {
+            rb.AddForce(10, 0, 0);
+        }
+        if (Input.GetKey("a"))
+        {
+            rb.AddForce(-10, 0, 0);
+        }
+        rb.AddForce(0, 0, 10);
     }
 }
